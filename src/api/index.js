@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:5000" });
+const api = axios.create({
+  baseURL: "https://mymemoriesserver.herokuapp.com/",
+});
 
 api.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -14,7 +16,9 @@ api.interceptors.request.use((req) => {
 export const fetchPosts = (page) => api.get(`/posts?page=${page}`);
 export const fetchPostsBySearch = (search) =>
   api.get(
-    `/posts/search?search=${search.search || "none"}&tags=${search.tags || "none"}`
+    `/posts/search?search=${search.search || "none"}&tags=${
+      search.tags || "none"
+    }`
   );
 export const fetchPost = (id) => api.get(`/posts/${id}`);
 export const createPost = (post) => api.post("/posts", post);
